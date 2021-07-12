@@ -22,3 +22,7 @@ function solution(n, lost, reserve) {
 
     return n - lost.length
   }
+
+  // 프로그래머스, 조이스틱
+
+  
