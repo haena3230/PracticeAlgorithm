@@ -33,3 +33,36 @@ function solution(progresses, speeds) {
     answer.push(count)
     return answer;
 }
+
+// 프로그래머스 프린터 문제
+function solution(priorities, location) {
+    var answer = 0;
+    // 대기 목록(queue), 출력 목록(stack) 생성
+    let stayArr = [];
+    let outArr = [];
+    for (let index in priorities) {
+        stayArr.push({index:index, priority:priorities[index]});
+    }
+    
+    // 대기 목록 없을 때 까지 반복
+    while(stayArr.length) {
+        // 중요도 높은 원소 있으면 맨 뒤로, 없으면 출력 배열로 이동
+        let tmp = stayArr.shift();
+        let state = false;
+        for(let value of stayArr) {
+            if(tmp.priority < value.priority) {
+                stayArr.push(tmp);
+                state = true;
+                break;
+            }
+        }
+        if(!state) outArr.push(tmp);
+    }
+    
+    // 몇번째인지 찾아서 return 
+    for(let index in outArr) {
+        if(outArr[index].index == location)
+            return Number(index)+1;
+    }
+    return -1;
+}
