@@ -88,3 +88,51 @@ function solution(clothes) {
     }
     return sum-1
 }
+
+// 베스트앨범
+function solution(genres, plays) {
+    var answer = [];
+    let genreSum = new Object();
+    // 장르 인덱스로 합 구하기
+    for(let index in genres) {
+        const genre = genres[index];
+        const play = plays[index];
+        if(genreSum[genre])
+            genreSum[genre] += play;
+        else
+            genreSum[genre] = play;
+    }
+    
+    // 합 많은 장르 순으로 정렬
+    let tmpArr = [];
+    for(let genreIndex in genreSum) {
+        tmpArr.push([genreIndex, genreSum[genreIndex]])
+    }
+    tmpArr.sort(function(a,b) {
+        return b[1] - a[1]
+    })
+
+    
+    // 고유번호, play 정렬하기 위한 새 배열 생성
+    for(let genre of tmpArr) {
+        let preArr = [];
+        for(let index in genres) {
+            if(genres[index] == genre[0]){
+                preArr.push({num:index, play:plays[index]});
+            }
+        }
+        // play 높은 순, num 작은 순 정렬
+        preArr.sort(function(a,b) {
+            return (b.play-a.play || a.num-b.num);
+        })
+        // 2개 이하만 재생목록에 추가
+        if(preArr.length == 1)
+            answer.push(Number(preArr[0].num));
+        else
+            for(let i = 0 ; i <= 1 ; i++) {
+                answer.push(Number(preArr[i].num));
+            }
+    }
+    
+    return answer;
+}
