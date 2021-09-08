@@ -81,3 +81,30 @@ function solution(jobs) {
 //     }
 //     return Math.floor(totalTime/len)
 // }
+
+// 프로그래머스 우선순위 큐 (heap) 문제이지만 다른 방식으로 해결
+// 이중우선순위 큐 문제
+function solution(operations) {
+    let tmpArr = [];
+    let index;
+    operations.forEach((oper) => {
+        if(oper[0] == 'I') { // 삽입
+            let num = Number(oper.split(' ')[1]);
+            tmpArr.push(num);
+        } else if ( oper == 'D 1' && tmpArr.length != 0) { // 최댓값 삭제 
+            index = tmpArr.indexOf(Math.max.apply(null, tmpArr));
+            tmpArr.splice(index,1);
+        } else if ( oper == 'D -1' && tmpArr.length != 0) { // 최솟값 삭제
+            index = tmpArr.indexOf(Math.min.apply(null,tmpArr));
+            tmpArr.splice(index, 1);
+        }
+    })
+    // 빈 배열
+    if( tmpArr.length == 0 ) return [0,0];
+    else {
+        // 최댓값과 최솟값 push
+        let Max = Math.max.apply(null, tmpArr);
+        let Min = Math.min.apply(null, tmpArr);
+        return [Max,Min];
+    }
+}
