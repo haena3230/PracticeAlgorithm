@@ -32,3 +32,18 @@ function solution(answers) {
     
     return answer;
 }
+
+// 카펫 문제
+function solution(brown, yellow) {
+    // 갈색 + 노란색 = 가로 * 세로 (가로가 세로보다 같거나 길다)
+    
+    let sum = brown + yellow;
+    let i;
+    
+    for ( i = 3; i < sum ; i++ ) {
+        if(sum % i == 0) {
+            let tmp = sum / i;
+            if ( (tmp-2) * (i-2) == yellow ) return [tmp, i]   
+        }
+    }
+}
